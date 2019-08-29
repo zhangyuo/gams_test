@@ -1,6 +1,6 @@
 ## GAMS software test
 
-run *.gms file in pycharm using JAMS python 3.6 api files
+run *.gms file in pycharm using GAMS python 3.6 api files
 
 ## env
 
