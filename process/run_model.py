@@ -1,3 +1,4 @@
+# ecoding = utf8
 '''
 @file
 This is the 1st model in a series of tutorial examples. Here we show:
@@ -21,25 +22,24 @@ if __name__ == "__main__":
     # else:
     #     ws = GamsWorkspace()
 
-    # ws = GamsWorkspace()
-    # ws.gamslib("stdcge")
 
-    ws = GamsWorkspace(working_directory='../gams_model')
+    # 设定文件路径以及代码位置，已经生成中间变量的文件夹位置。
+    ws = GamsWorkspace(system_directory = '/Applications/GAMS27.3/sysdir', working_directory='../gams_model')
+    '''
     t1 = ws.add_job_from_file("stdcge.gms")
     t1.run()
+    # t1.out_db 其实也是一种database
+    t1.out_db.export("data.gdx")
+    '''
 
-    print("Ran with Default:")
-    for rec in t1.out_db["x"]:
+    # print("Run with t1:")
+    # for rec in t1.out_db["x"]:
+    #     print("x(" + rec.key(0) + "," + rec.key(1) + "): level=" + str(rec.level) + " marginal=" + str(rec.marginal))
+
+    # 重新读取 存储的out_db数据
+    t2 = ws.add_database_from_gdx("data.gdx")
+    print("Run with t2:")
+    for rec in t2["x"]:
         print("x(" + rec.key(0) + "," + rec.key(1) + "): level=" + str(rec.level) + " marginal=" + str(rec.marginal))
-    #
-    # for rec in t1.out_db["UU"]:
-    #     print(rec.level)
 
-    # for rec in t1.out_db["Xv"]:
-    #     print("Xv(" + rec.key(0) + "): level=" + str(rec.level) + " marginal=" + str(rec.marginal))
 
-    # for rec in t1.out_db["epsilon"]:
-    #     print("level=" + str(rec.level) + " marginal=" + str(rec.marginal))
-
-    # for rec in t1.out_db["dX"]:
-    #     print(rec.key(0) + "," + rec.key(1), rec.value)
